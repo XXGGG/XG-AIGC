@@ -1,0 +1,47 @@
+/* 推荐博主：头像存在 public/creators/<id>.webp（没有就显示名字首字），简介是用户写的（只放中文原话），链接没有的平台就不显示 */
+export const CREATORS=[
+  {
+    id:"mx-shell",name:"MX-Shell",avatar:"creators/mx-shell.webp",
+    intro:"《丧失清道夫》作者，分享提示词以及提示词写法，第一个帮助我学习制作AI视频的博主，伟大无需多言！",
+    links:{
+      bilibili:"https://space.bilibili.com/388217494",
+      douyin:"https://v.douyin.com/pwq3CsokEqs/"
+    }
+  },
+  {
+    id:"didi-ok",name:"DiDi_OK",avatar:"creators/didi-ok.webp",
+    intro:"《牌子》《箭头》《垃圾站》《糖果》作者，大佬级人物。",
+    links:{
+      bilibili:"https://space.bilibili.com/412615990",
+      douyin:"https://v.douyin.com/QpPQunQOE28/"
+    }
+  },
+  {
+    id:"ai-bibidao",name:"AI逼逼叨",avatar:"creators/ai-bibidao.webp",
+    intro:"会介绍很多有意思的作品和AI博主",
+    links:{
+      douyin:"https://v.douyin.com/vCEXkofQZ6c/"
+    }
+  },
+  {
+    id:"workfisher",name:"WorkFisher",avatar:"creators/workfisher.webp",
+    intro:"讲解热门AI事情，分享工具、提示词以及使用方法",
+    links:{
+      bilibili:"https://space.bilibili.com/17919458"
+    }
+  },
+  {
+    id:"henji",name:"痕继痕迹",avatar:"creators/henji.webp",
+    intro:"讲解各种AI工具的使用，并提供ComfyUI工作流。",
+    links:{
+      bilibili:"https://space.bilibili.com/39337803"
+    }
+  },
+  {
+    id:"t8star-aix",name:"T8star-Aix",avatar:"creators/t8star-aix.webp",
+    intro:"开源大佬，讲解各种热门开源AI，以及ComfyUI工作流。",
+    links:{
+      bilibili:"https://space.bilibili.com/385085361"
+    }
+  }
+];
