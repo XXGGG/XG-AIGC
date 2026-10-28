@@ -69,7 +69,7 @@ button{cursor:pointer}
   padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 
 /* 顶部主导航：一行字，当前栏目黑，其它灰 */
-.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;padding:14px 24px;border-bottom:1px solid var(--rule);min-width:0}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;padding:14px 24px;border-bottom:1px solid var(--rule);min-width:0;position:relative;z-index:200}
 .brand{display:flex;align-items:center;gap:9px;min-width:0;color:var(--ink);border:0;background:none;padding:0;cursor:pointer}
 .brand svg{flex:none}
 .brand h1{margin:0;font-size:14px;line-height:20px;font-weight:550;white-space:nowrap}
@@ -79,9 +79,17 @@ button{cursor:pointer}
 .nav button{display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:2px 0;font-size:13px;line-height:20px;color:var(--muted);white-space:nowrap;transition:color .15s}
 .nav button:hover{color:var(--ink)}
 .nav button[aria-current="page"]{color:var(--ink)}
-.langsel{display:flex;align-items:center;gap:6px;color:var(--muted)}
-.langsel select{border:0;background:transparent;padding:2px 0;font-size:13px;color:var(--text-2);cursor:pointer}
-.langsel select:hover{color:var(--ink)}
+.langsel{position:relative}
+.langbtn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px 0 9px;border:1px solid var(--rule);border-radius:15px;background:var(--well);color:var(--text-2);font-size:13px;cursor:pointer;transition:color .15s,background .15s,border-color .15s}
+.langbtn:hover,.langbtn[aria-expanded="true"]{color:var(--ink);background:var(--well-2)}
+.langbtn .chev{opacity:.6;transition:transform .15s}
+.langbtn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.langmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:60;min-width:150px;margin:0;padding:5px;list-style:none;border-radius:14px;
+  background:color-mix(in srgb,var(--raise) 96%,transparent);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);box-shadow:0 12px 32px rgba(0,0,0,.28)}
+.langmenu button{display:flex;align-items:center;gap:8px;width:100%;padding:8px 12px 8px 10px;border:0;border-radius:9px;background:none;color:var(--text-2);font-size:13.5px;text-align:left;cursor:pointer}
+.langmenu button:hover{background:var(--well);color:var(--ink)}
+.langmenu button[aria-selected="true"]{color:var(--ink);font-weight:600}
 .meta{font-size:12.5px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 
 /* 主区：左栏 + 效果图，中间一条细线 */
@@ -260,7 +268,7 @@ textarea.prompt.mono{font-family:var(--f-mono);font-size:12.5px}
 @media (max-width:900px){
   .top{gap:6px 16px;padding:12px 16px}
   .nav{flex-wrap:wrap;gap:2px 16px;overflow:visible}
-  .langsel select{max-width:96px}
+  .langbtn span{max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,46fr) minmax(0,54fr)}
   .stage{grid-row:1;border-bottom:1px solid var(--rule)}
   .left{grid-row:2;border-right:0}
