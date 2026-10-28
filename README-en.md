@@ -5,15 +5,11 @@
 <h1 align="center">XG-AIGC</h1>
 
 <p align="center">
-  <a href="https://xiexiage.com"><img alt="Blog" src="https://img.shields.io/badge/Blog-xiexiage.com-e5484d?style=flat-square"></a>
-  <a href="https://github.com/XXGGG"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-XXGGG-181717?style=flat-square&logo=github"></a>
+  <a href="https://xgai.xiexiage.com"><img alt="Visit site" src="https://img.shields.io/badge/Visit%20site-xgai.xiexiage.com-2f7cf6?style=for-the-badge"></a>
+  <a href="https://xg-aigc.pages.dev/"><img alt="Mirror" src="https://img.shields.io/badge/Mirror-xg--aigc.pages.dev-555?style=for-the-badge"></a>
 </p>
 
 <p align="center">An open resource site for learning AI video: prompts, reference images, character turnarounds, camera moves and full case breakdowns. All public, all free.</p>
-
-<p align="center">
-  <a href="https://xgai.xiexiage.com"><b>Try it at xgai.xiexiage.com</b></a>
-</p>
 
 <p align="center">
   <a href="README.md">官话 - 简体中文</a> | <a href="README-cmn_TW.md">官話 - 繁體中文</a> | <a href="README-jyut.md">廣東話</a> | English

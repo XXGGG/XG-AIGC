@@ -5,15 +5,11 @@
 <h1 align="center">XG-AIGC</h1>
 
 <p align="center">
-  <a href="https://xiexiage.com"><img alt="博客" src="https://img.shields.io/badge/博客-xiexiage.com-e5484d?style=flat-square"></a>
-  <a href="https://github.com/XXGGG"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-XXGGG-181717?style=flat-square&logo=github"></a>
+  <a href="https://xgai.xiexiage.com"><img alt="访问网站" src="https://img.shields.io/badge/访问网站-xgai.xiexiage.com-2f7cf6?style=for-the-badge"></a>
+  <a href="https://xg-aigc.pages.dev/"><img alt="备用地址" src="https://img.shields.io/badge/备用地址-xg--aigc.pages.dev-555?style=for-the-badge"></a>
 </p>
 
 <p align="center">学习 AI 视频的开源资料站：提示词、参考图、三视图、运镜和案例，全部公开，免费使用。</p>
-
-<p align="center">
-  <a href="https://xgai.xiexiage.com"><b>在线使用 xgai.xiexiage.com</b></a>
-</p>
 
 <p align="center">
   官话 - 简体中文 | <a href="README-cmn_TW.md">官話 - 繁體中文</a> | <a href="README-jyut.md">廣東話</a> | <a href="README-en.md">English</a>
