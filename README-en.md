@@ -56,7 +56,7 @@ The interface is available in Simplified Chinese, Traditional Chinese, English, 
 3. Paste the prompt into your image tool (Krea 2, Z-Image, Jimeng, GPT-image…) to make a turnaround, then use it for video.
 4. **Find a background**: pick one in Scenes and copy its prompt, or use the image as a reference.
 5. **Learn a shot**: watch the demos in Camera moves and append the camera prompt to your video prompt.
-6. **See how it's done**: open Showcase and step through each clip's reference images and prompt.
+6. **Study the overall prompt style**: open Showcase and step through each clip's reference images and prompts.
 
 <p align="center"><img src="docs/images/cases.gif" width="860" alt="Showcase demo"></p>
 
