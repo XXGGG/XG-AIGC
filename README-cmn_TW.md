@@ -1,8 +1,13 @@
-<p align="center">
-  <img src="public/favicon.svg" width="96" alt="XG-AIGC">
-</p>
+<div align="center">
+  <img src="docs/images/logo.png" width="128" alt="XG-AIGC">
+</div>
 
 <h1 align="center">XG-AIGC</h1>
+
+<p align="center">
+  <a href="https://xiexiage.com"><img alt="部落格" src="https://img.shields.io/badge/部落格-xiexiage.com-e5484d?style=flat-square"></a>
+  <a href="https://github.com/XXGGG"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-XXGGG-181717?style=flat-square&logo=github"></a>
+</p>
 
 <p align="center">學習 AI 影片的開源資料站：提示詞、參考圖、三視圖、運鏡和案例，全部公開，免費使用。</p>
 
@@ -11,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> | <a href="README-cmn_CN.md">官话 - 简体中文</a> | 官話 - 繁體中文 | <a href="README-jyut.md">廣東話</a>
+  <a href="README.md">官话 - 简体中文</a> | 官話 - 繁體中文 | <a href="README-jyut.md">廣東話</a> | <a href="README-en.md">English</a>
 </p>
 
 <p align="center">

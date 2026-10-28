@@ -1,17 +1,22 @@
-<p align="center">
-  <img src="public/favicon.svg" width="96" alt="XG-AIGC">
-</p>
+<div align="center">
+  <img src="docs/images/logo.png" width="128" alt="XG-AIGC">
+</div>
 
 <h1 align="center">XG-AIGC</h1>
 
-<p align="center">An open resource site for learning AI video: prompts, reference images, character turnarounds, camera moves and full case breakdowns. All public, all free.</p>
+<p align="center">
+  <a href="https://xiexiage.com"><img alt="博客" src="https://img.shields.io/badge/博客-xiexiage.com-e5484d?style=flat-square"></a>
+  <a href="https://github.com/XXGGG"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-XXGGG-181717?style=flat-square&logo=github"></a>
+</p>
+
+<p align="center">学习 AI 视频的开源资料站：提示词、参考图、三视图、运镜和案例，全部公开，免费使用。</p>
 
 <p align="center">
-  <a href="https://xgai.xiexiage.com"><b>Try it at xgai.xiexiage.com</b></a>
+  <a href="https://xgai.xiexiage.com"><b>在线使用 xgai.xiexiage.com</b></a>
 </p>
 
 <p align="center">
-  English | <a href="README-cmn_CN.md">官话 - 简体中文</a> | <a href="README-cmn_TW.md">官話 - 繁體中文</a> | <a href="README-jyut.md">廣東話</a>
+  官话 - 简体中文 | <a href="README-cmn_TW.md">官話 - 繁體中文</a> | <a href="README-jyut.md">廣東話</a> | <a href="README-en.md">English</a>
 </p>
 
 <p align="center">
@@ -21,78 +26,78 @@
   <img alt="i18n" src="https://img.shields.io/badge/UI-简%20%7C%20繁%20%7C%20EN%20%7C%20日%20%7C%20한-lightgrey">
 </p>
 
-<p align="center"><img src="docs/images/wardrobe.gif" width="860" alt="Wardrobe demo"></p>
+<p align="center"><img src="docs/images/wardrobe.gif" width="860" alt="更衣室演示"></p>
 
-## What is this
+## 这是什么
 
-I started learning AI video from zero and got a lot of help from people who shared their work for free. This site is my way of paying it back: the prompts, reference images and workflows I actually use, laid out in one place. No subscriptions, no paywall, no ads.
+我也是从零开始学 AI 视频的，受过很多前辈无私分享的帮助，所以把自己用过的提示词、参考图和做法都摊开来，做成当初自己最需要的地方。没有订阅、付费和广告。
 
-| Page | What it does |
+| 页面 | 能做什么 |
 | --- | --- |
-| **Wardrobe** | Pick ethnicity, age, hairstyle, accessories, clothes and shoes to build a complete character-turnaround prompt. Every part has a reference image, and every image's prompt can be copied. |
-| **Scenes** | Landscape scene images with prompts, filterable by series (Backrooms, Fairyland, Cyberpunk…) and tags. Use them as backgrounds or first frames. |
-| **Turnarounds** | Ready-made character sheets (headshot + full-body front + full-body back). The ones made for this site can be downloaded at full resolution. |
-| **Prompts** | Image-to-image prompts: anime 2D, chibi, 3D model, photoreal, outfit swap. Each comes with before/after examples. |
-| **Camera moves** | Dozens of camera moves and shot types, each with a demo clip and a copyable prompt. |
-| **Showcase** | Full project breakdowns: the model, resolution, length, reference images and original prompt behind every clip. |
+| **更衣室** | 点选人种、年龄、发型、饰品、衣服和鞋子，拼出一段完整的人物三视图提示词；每个部件都有参考图，每张图的提示词都能复制。 |
+| **场景** | 横屏场景图和提示词，按系列（后室、仙境、赛博朋克……）和标签筛选，拿来当背景或首帧。 |
+| **三视图** | 现成的人物三视图（大头照 + 正面全身 + 背面全身），站长生成的可以直接下载原图。 |
+| **提示词** | 动漫 2D 化、Q 版、建模 3D 化、转真人、换衣服等图生图提示词，每组都有原图和效果对比。 |
+| **运镜 · 镜头** | 几十种运镜和镜头语言，每种配一段演示视频和可复制的提示词。 |
+| **案例** | 完整作品拆解：每个片段用的模型、分辨率、时长、参考图和原始提示词。 |
 
-The interface is available in Simplified Chinese, Traditional Chinese, English, Japanese and Korean.
+界面支持简体中文、繁體中文、English、日本語、한국어。
 
-## Screenshots
+## 截图
 
-| Wardrobe | Scenes |
+| 更衣室 | 场景 |
 | --- | --- |
-| <img src="docs/images/wardrobe.webp" alt="Wardrobe"> | <img src="docs/images/scene.webp" alt="Scenes"> |
-| **Turnarounds** | **Prompts** |
-| <img src="docs/images/sheet.webp" alt="Turnarounds"> | <img src="docs/images/prompt.webp" alt="Prompts"> |
-| **Camera moves** | **Showcase** |
-| <img src="docs/images/camera.webp" alt="Camera moves"> | <img src="docs/images/cases.webp" alt="Showcase"> |
+| <img src="docs/images/wardrobe.webp" alt="更衣室"> | <img src="docs/images/scene.webp" alt="场景"> |
+| **三视图** | **提示词** |
+| <img src="docs/images/sheet.webp" alt="三视图"> | <img src="docs/images/prompt.webp" alt="提示词"> |
+| **运镜 · 镜头** | **案例** |
+| <img src="docs/images/camera.webp" alt="运镜"> | <img src="docs/images/cases.webp" alt="案例"> |
 
-## How to use
+## 怎么用
 
-1. Open [xgai.xiexiage.com](https://xgai.xiexiage.com). No sign-up.
-2. **Build a character**: in Wardrobe, go down the left panel (person, hair, accessories, top, bottom, shoes). The reference images update on the right. Open the prompt at the bottom right and hit Copy.
-3. Paste the prompt into your image tool (Krea 2, Z-Image, Jimeng, GPT-image…) to make a turnaround, then use it for video.
-4. **Find a background**: pick one in Scenes and copy its prompt, or use the image as a reference.
-5. **Learn a shot**: watch the demos in Camera moves and append the camera prompt to your video prompt.
-6. **See how it's done**: open Showcase and step through each clip's reference images and prompt.
+1. 打开 [xgai.xiexiage.com](https://xgai.xiexiage.com)，不用注册。
+2. **做人物**：进「更衣室」，在左栏依次选人物、发型、饰品、上装、下装、鞋子。右边会实时显示对应的参考图，右下角打开提示词，点「复制」。
+3. 把提示词贴进你常用的生图工具（Krea 2、Z-Image、即梦、GPT-image 等）生成三视图，再拿三视图去做视频。
+4. **找背景**：进「场景」挑一张，复制提示词自己生成，或直接拿图当参考。
+5. **学镜头**：进「运镜 · 镜头」看演示视频，把运镜提示词接在你的视频提示词后面。
+6. **看别人怎么做**：进「案例」，按片段看每一段用了什么参考图和提示词。
 
-<p align="center"><img src="docs/images/cases.gif" width="860" alt="Showcase demo"></p>
+<p align="center"><img src="docs/images/cases.gif" width="860" alt="案例页演示"></p>
 
-<p align="center"><img src="docs/images/prompt.gif" width="860" alt="Prompts page demo"></p>
+<p align="center"><img src="docs/images/prompt.gif" width="860" alt="提示词页演示"></p>
 
-## Run locally
+## 本地运行
 
-Requires Node.js 20.19 or newer.
+需要 Node.js 20.19 以上。
 
 ```bash
 git clone https://github.com/XXGGG/XG-AIGC.git
 cd XG-AIGC
 npm install
-npm run dev      # dev server, reachable on your LAN
-npm run build    # build to dist/, deployable to any static host
+npm run dev      # 开发预览，局域网也能访问
+npm run build    # 打包到 dist/，可以直接放到任何静态托管
 ```
 
-## Layout
+## 目录
 
 ```
 src/
-  components/   pages and components (TopBar, SidePanel, StagePanel, LibSplit, CasePage…)
-  data/         catalog data: people, hair, clothes, shoes, scenes, camera moves, cases
-  lib/          prompt builders, state, image lookup
-  i18n/         UI text in five languages
+  components/   页面和组件（TopBar、SidePanel、StagePanel、LibSplit、CasePage……）
+  data/         条目数据：人物、发型、服装、鞋子、场景、运镜、案例
+  lib/          提示词生成、状态、图片查找
+  i18n/         五种语言的界面文字
 public/
-  images/       part reference images (images/<model>/<f|m|u>/<category>/<id>__<color>.webp)
-  cases/ camera/ sheets/   showcase clips, camera demos, full-size turnarounds
-tools/          image sync and translation helper scripts
+  images/       局部参考图（images/<模型>/<f|m|u>/<分类>/<id>__<颜色>.webp）
+  cases/ camera/ sheets/   案例片段、运镜演示、三视图原图
+tools/          图片同步和翻译辅助脚本
 ```
 
-## License
+## 授权
 
-- **Code**: [MIT](LICENSE).
-- **Prompts and site text**: CC0 1.0. Use, modify and sell freely, no credit needed.
-- **Images and videos made for this site** (Wardrobe, Scenes, the site-made turnarounds, camera demos): CC0 1.0.
-- **Exceptions**: the "Trending online" turnarounds and some Prompts page examples are fan adaptations of AI-product mascots and game characters. The characters belong to their creators and companies and are not CC0; each one lists its source and license. Showcase clips are for viewing on the site only.
-- Every image is AI-generated and every person is fictional. Follow your local laws and label AI content where required. See the site's About page for details.
+- **代码**：[MIT](LICENSE)。
+- **提示词和网站文字**：CC0 1.0，商用、修改都可以，不用署名。
+- **站长生成的图和视频**（更衣室、场景、三视图页「站长生成」、运镜演示）：CC0 1.0。
+- **例外**：三视图页「网络热门」和提示词页部分示例图，是 AI 产品、游戏角色的拟人或同人改编，角色归原作者和原公司，不是 CC0，每张都写了出处和协议，请照着用。案例页的视频片段只供在线观看。
+- 所有图片都由 AI 生成，人物是虚构的。请遵守当地法律，发布时按规定标明 AI 生成。详见网站「关于」页。
 
-If you think an image infringes your rights, please open an [Issue](https://github.com/XXGGG/XG-AIGC/issues) and it will be taken down after review.
+如果觉得哪张图侵犯了你的权利，请提 [Issue](https://github.com/XXGGG/XG-AIGC/issues)，核实后会尽快撤下。
