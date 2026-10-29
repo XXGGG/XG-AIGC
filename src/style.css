@@ -790,3 +790,14 @@ details.big.dim .bigbody{opacity:.55}
 .clink .plat{flex:none;color:inherit}
 /* 作品列表右栏窄，四个平台按钮收紧一点排成一行 */
 .sprompt .clinks{gap:6px}.sprompt .clink{padding:0 9px;gap:5px}
+
+/* 运镜分类标签往下滚时吸在顶部 */
+.slist>.sfilter{position:sticky;top:-20px;z-index:6;background:var(--ground);margin:-20px -24px 14px;padding:20px 24px 12px}
+/* 提示词排版按钮用图标 */
+.sidetabs .colbtn{display:grid;place-items:center;padding:8px 14px}
+/* 推荐平台：最推荐的占满一行 */
+.pfcard.best{grid-column:1/-1;padding:24px 24px 22px;border-color:color-mix(in srgb,#22c55e 45%,var(--rule))}
+.pfcard.best h3{font-size:22px}
+.pfcard.best .pfkey{font-size:17px}
+.pfcard.best .pfico{width:56px;height:56px}
+@media (max-width:900px){.slist>.sfilter{top:-16px;margin:-16px -16px 12px;padding:16px 16px 10px}}

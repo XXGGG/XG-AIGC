@@ -38,7 +38,7 @@ const ico=id=>"platforms/"+id+".png";
     <h2>{{t('rec.platforms')}}</h2>
     <p class="pnote">{{PLAT_NOTE}}</p>
     <div class="pgrid">
-      <article v-for="p in PLATFORMS" :key="p.id" class="pfcard">
+      <article v-for="p in PLATFORMS" :key="p.id" :class="['pfcard',{best:p.best}]">
         <div class="pfhead">
           <img class="pfico" :src="ico(p.id)" :alt="p.name" width="44" height="44" loading="lazy">
           <h3>{{p.name}}</h3>

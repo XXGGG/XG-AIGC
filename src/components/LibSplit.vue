@@ -40,7 +40,7 @@ const sheetImg=c=>c.own?own(c.id).prev:pic("sheet/"+c.id+"__def");
 /* 点三视图卡片：像场景页一样在左边看大图，左右切换只在当前筛选结果里走 */
 const sbig=ref(false);
 /* 提示词页一行一个 / 一行两个，默认一个，记在本机 */
-const pcols=ref((()=>{try{return localStorage.getItem("xgw.promptCols")==="2"?2:1}catch{return 1}})());
+const pcols=ref((()=>{try{return localStorage.getItem("xgw.promptCols")==="1"?1:2}catch{return 2}})());
 const setCols=n=>{pcols.value=n;try{localStorage.setItem("xgw.promptCols",String(n))}catch{}};
 const SL=computed(()=>[...ownList.value,...fanList.value]);
 const sidx=computed(()=>Math.max(0,SL.value.findIndex(c=>c.id===cur.value.sheet)));
@@ -161,7 +161,7 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
         </div>
       </div>
       <div class="sidetabs left" role="tablist" :aria-label="t('lib.colsL')">
-        <button v-for="n in [1,2]" :key="n" role="tab" :aria-selected="pcols===n" @click="setCols(n)">{{t('lib.cols'+n)}}</button>
+        <button v-for="n in [1,2]" :key="n" class="colbtn" role="tab" :aria-selected="pcols===n" :aria-label="t('lib.cols'+n)" :title="t('lib.cols'+n)" @click="setCols(n)"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect v-if="n===1" x="2.5" y="3.5" width="13" height="11" rx="2"/><template v-else><rect x="1.8" y="3.5" width="6.2" height="11" rx="1.6"/><rect x="10" y="3.5" width="6.2" height="11" rx="1.6"/></template></svg></button>
       </div>
       </template>
 
