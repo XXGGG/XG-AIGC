@@ -8,7 +8,7 @@ export function restore(){
   let o=null;try{o=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
   if(!o||typeof o!=="object")return;
   KEEP.forEach(k=>{if(o[k]!==undefined)state[k]=o[k]});
-  if(["filter","whitebox"].includes(state.page))state.page="wardrobe";
+  if(["whitebox"].includes(state.page))state.page="wardrobe";
   ["f","m"].forEach(g=>{const v=o.sel&&o.sel[g];if(v&&typeof v==="object")state.sel[g]={...freshSel(g),...v}});
   const g0=state.g;["f","m"].forEach(g=>{state.g=g;try{sanitize()}catch(e){state.sel[g]=freshSel(g)}});state.g=g0;
 }

@@ -493,14 +493,8 @@ export const OWN_SHEETS=[
 
 /* 提示词：每一类给两套写法（GPT·即梦 用参考图 / Krea 用文字），原图和三视图各一张；提示词在 lib/libPrompt.js */
 export const PROMPT_MODELS=["gpt","krea"];
-export const PROMPTS=["anime2d","chibi","model3d","real","outfit","fromchar"].map(id=>({id}));
-
-/* 画风 / 滤镜：每种画风配一段不同的小故事，key 是滤镜重点词 */
-export const FILTERS=Array.from({length:6},(_,i)=>({id:"f"+(i+1),name:null,img:"",story:"",key:"",prompt:""}));
+export const PROMPTS=["anime2d","chibi","model3d","real","outfit","fromchar","mimic"].map(id=>({id}));
 
 /* 案例数据在 cases.js */
 export {CASES} from "./cases.js";
 
-/* 白模视频：白模预览和成片对照 + 提示词；w1 是 SD2.0 全能参考「图片里的人模仿白模动作」（10-30 用户要） */
-const WB1="画风：跟随 @图片1 中人物的画风和材质。\n一镜到底，时长和 @视频1 一样。\n画面比例跟随 @视频1，是横屏 16:9；@图片1 只提供人物，画面按 @视频1 的横屏构图。\n\n【参考】\n@图片1 是主角，借用她的长相、发型、服装和画风。\n@视频1 是白模动作参考，只借用白模的动作、走位、节奏和镜头运动；白模的外形、材质和背景都换成主角和【场景】里的地方。\n\n【动作】\n主角完全照 @视频1 里白模的动作来做：起始姿势、手脚位置、转身、重心移动都一样，每个动作的先后顺序和快慢也一样。身材比例按 @图片1，双脚稳稳踩在地面上。\n\n【镜头】\n景别、角度、镜头运动都和 @视频1 一致，人物在画面里的位置和大小也一致。\n\n【场景】\n白天，一间空旷的木地板舞蹈室，一面墙是整面大镜子，阳光从窗户斜照进来。\n\n【声音】\n现场环境声。无配乐、无解说、无字幕。\n\n【约束】\n全程只有主角一个人，长相和服装始终和 @图片1 一致。无穿模、瞬移、人物复制、手指数量错误、文字、水印。";
-export const WHITEBOX=Array.from({length:1},(_,i)=>({id:"w"+(i+1),name:i?null:N("图片里的人模仿白模动作","圖片裡的人模仿白模動作","Person in the image copies the mannequin","画像の人物が白モデルの動きをまねる","이미지 속 인물이 마네킹 동작 따라하기"),box:"",final:"",prompt:i?"":WB1}));

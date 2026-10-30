@@ -10,7 +10,6 @@ import StagePanel from "./components/StagePanel.vue";
 import ZoomDialog from "./components/ZoomDialog.vue";
 import AboutPage from "./components/AboutPage.vue";
 import CreatorsPage from "./components/CreatorsPage.vue";
-import LibPage from "./components/LibPage.vue";
 import LibSplit from "./components/LibSplit.vue";
 import ScenePage from "./components/ScenePage.vue";
 import CasePage from "./components/CasePage.vue";
@@ -30,8 +29,7 @@ onBeforeUnmount(()=>document.removeEventListener("keydown",onKey));
     <CreatorsPage v-else-if="state.page==='creators'"/>
     <ScenePage v-else-if="state.page==='scene'"/>
     <CasePage v-else-if="state.page==='cases'"/>
-    <LibSplit v-else-if="['sheet','prompt','camera'].includes(state.page)"/>
-    <LibPage v-else-if="state.page!=='wardrobe'"/>
+    <LibSplit v-else-if="['sheet','prompt','camera','filter'].includes(state.page)"/>
     <div v-else class="main"><SidePanel/><StagePanel/></div>
   </div>
   <ZoomDialog/>

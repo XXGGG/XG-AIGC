@@ -1,6 +1,6 @@
 <script setup>
 import {copyText} from "../lib/copy.js";
-/* 三视图、提示词、运镜三页：和场景页同一个版式（10-27 用户定「完全靠右」）。
+/* 三视图、提示词、运镜、画风四页：和场景页同一个版式（10-27 用户定「完全靠右」）。
    左边筛选 + 卡片网格，点一张卡选中；右栏固定显示这张卡的提示词和复制按钮 */
 import {ref,computed,watch,nextTick,onBeforeUnmount} from "vue";
 import {useI18n} from "vue-i18n";
@@ -49,14 +49,17 @@ const safter=computed(()=>SL.value.map((_,k)=>SL.value[(sidx.value+k)%SL.value.l
 const openSheet=id=>{cur.value.sheet=id;sbig.value=true};
 
 /* 每页各记一张当前选中的卡 */
-const cur=ref({sheet:(ALL.find(c=>!c.own)||ALL[0]).id,prompt:PROMPTS[0].id,camera:CAMERA[0].id});
+const cur=ref({sheet:(ALL.find(c=>!c.own)||ALL[0]).id,prompt:PROMPTS[0].id,camera:CAMERA[0].id,filter:(CAMERA.find(c=>c.cat==="look")||CAMERA[0]).id});
 /* 窄屏时提示词栏在列表下面，点卡片后滚过去 */
 const side=ref(null);
 const sel=(id,go)=>{cur.value[page.value]=id;if(go&&window.innerWidth<=900)nextTick(()=>side.value?.scrollIntoView({behavior:"smooth",block:"start"}))};
 const on=id=>cur.value[page.value]===id;
 const sh=computed(()=>ALL.find(c=>c.id===cur.value.sheet));
 const pr=computed(()=>PROMPTS.find(p=>p.id===cur.value.prompt));
-const cm=computed(()=>CAMERA.find(c=>c.id===cur.value.camera));
+/* 画风·滤镜页和运镜页共用这套卡片和视频（10-30 用户：画风质感从运镜搬过去） */
+const isCam=computed(()=>page.value==="camera"||page.value==="filter");
+const ck=computed(()=>page.value==="filter"?"filter":"camera");
+const cm=computed(()=>CAMERA.find(c=>c.id===cur.value[ck.value]));
 /* 其他：提示词分 H3 和 SD2.0 两版，记住上次选的 */
 let cv0="h3";try{cv0=localStorage.getItem("xgw.camVer")==="sd"?"sd":"h3"}catch{}
 const cver=ref(cv0);
@@ -66,21 +69,23 @@ const camPar=computed(()=>cm.value.sd&&cver.value==="sd"?cm.value.sdParams:(cm.v
 /* 运镜卡：鼠标移上去静音循环预览，移开停在开头；只有点右下角放大才在左边大屏看（10-27 用户定） */
 const big=ref(false);
 const hover=(e,go)=>{const v=e.currentTarget.querySelector("video");if(!v)return;if(go){v.play().catch(()=>{})}else{v.pause();v.currentTime=0}};
-const openBig=id=>{cur.value.camera=id;big.value=true};
+const openBig=id=>{cur.value[ck.value]=id;big.value=true};
 watch(page,()=>{big.value=false;sbig.value=false});
 /* 运镜页顶部分组筛选：只列出已经有条目的分组 */
 const ccat=ref("move");
-const CATS=CAM_CATS.filter(k=>CAMERA.some(c=>c.cat===k));
-const camList=computed(()=>CAMERA.filter(c=>c.cat===ccat.value));
+const CATS=CAM_CATS.filter(k=>k!=="look"&&CAMERA.some(c=>c.cat===k));
+/* 画风页底部切换：视频画风 / 照片画风（照片画风还没有内容） */
+const fkind=ref("video");
+const camList=computed(()=>page.value==="filter"?(fkind.value==="video"?CAMERA.filter(c=>c.cat==="look"):[]):CAMERA.filter(c=>c.cat===ccat.value));
 const pickCat=k=>{ccat.value=k;const f=CAMERA.find(c=>c.cat===k);if(f)cur.value.camera=f.id};
 const CT=CAM_TONE;
 /* 大屏里左右切换（只在已有视频的运镜之间），下面一排从当前这条往后排 */
-const VID=CAMERA.filter(c=>c.video);
-const vidx=computed(()=>Math.max(0,VID.findIndex(c=>c.id===cur.value.camera)));
-const step=d=>{cur.value.camera=VID[(vidx.value+d+VID.length)%VID.length].id};
-const after=computed(()=>VID.map((_,k)=>VID[(vidx.value+k)%VID.length]));
+const VIDS=computed(()=>CAMERA.filter(c=>c.video&&(page.value==="filter")===(c.cat==="look")));
+const vidx=computed(()=>Math.max(0,VIDS.value.findIndex(c=>c.id===cur.value[ck.value])));
+const step=d=>{const V=VIDS.value;cur.value[ck.value]=V[(vidx.value+d+V.length)%V.length].id};
+const after=computed(()=>VIDS.value.map((_,k)=>VIDS.value[(vidx.value+k)%VIDS.value.length]));
 const onKey=e=>{if(sbig.value&&page.value==="sheet"&&!/INPUT|TEXTAREA/.test(e.target.tagName)&&!state.zoom){if(e.key==="ArrowRight")sstep(1);else if(e.key==="ArrowLeft")sstep(-1);else if(e.key==="Escape")sbig.value=false;return}
-  if(!big.value||page.value!=="camera"||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight")step(1);else if(e.key==="ArrowLeft")step(-1);else if(e.key==="Escape"&&!document.fullscreenElement)big.value=false};
+  if(!big.value||!isCam.value||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight")step(1);else if(e.key==="ArrowLeft")step(-1);else if(e.key==="Escape"&&!document.fullscreenElement)big.value=false};
 window.addEventListener("keydown",onKey);onBeforeUnmount(()=>window.removeEventListener("keydown",onKey));
 /* 手机没有悬停：滚到屏幕里的运镜卡自动静音播放，滚出去就停 */
 let io=null;
@@ -123,7 +128,7 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
 </script>
 <template>
   <main class="scenes" :aria-label="t('nav.'+page)">
-    <section :class="['slist',{withtabs:page==='sheet'||page==='prompt',viewing:(page==='camera'&&big)||(page==='sheet'&&sbig)}]">
+    <section :class="['slist',{withtabs:page==='sheet'||page==='prompt'||page==='filter',viewing:(isCam&&big)||(page==='sheet'&&sbig)}]">
 
       <div v-if="page==='sheet'&&sbig" class="sview shview">
         <div class="svhead"><button class="pill" @click="sbig=false">← {{t('lib.sheetBack')}}</button><b>{{nm(sh.name)}}</b><span class="stg"><i v-for="g in sh.tags" :key="g" :class="'chip tone-'+TONE[g]">{{t('lib.tag.'+g)}}</i></span><em class="cnt">{{sidx+1}} / {{SL.length}}</em><a v-if="sh.own" class="pill dlbtn" :href="own(sh.id).png" :download="sh.id+'.png'">{{t('lib.dlPng')}}</a></div>
@@ -161,7 +166,8 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
       <div :class="['sgrid','wide','ptri',{two:pcols===2}]">
         <div v-for="(p,i) in PROMPTS" :key="p.id" :class="['scard','nohl','prow','tone-'+PTONE[i%PTONE.length]]" role="button" tabindex="0" :aria-pressed="on(p.id)" @click="pickV(p.id)" @keydown.enter="pickV(p.id)">
           <h3 class="prow-h">{{t('lib.p.'+p.id)}}</h3>
-          <div :class="['pair','tri',p.id==='fromchar'?'three32':p.id==='outfit'?'quad4':'quad',{tall:TALL.has(p.id)}]">
+          <p v-if="p.id==='mimic'" class="pdesc">{{t('lib.mimicDesc')}}</p>
+          <div v-else :class="['pair','tri',p.id==='fromchar'?'three32':p.id==='outfit'?'quad4':'quad',{tall:TALL.has(p.id)}]">
             <figure v-for="[k,r,v] in figs(p.id)" :key="k" :class="{von:v&&on(p.id)&&vpick(p.id)===v}" @click.stop="pickV(p.id,v)"><div :class="'slot '+r"><img v-if="pic('prompt/'+p.id+'__'+k)" :src="pic('prompt/'+p.id+'__'+k)" alt="" loading="lazy"><Icon v-else :n="r==='r32'?'sheet':'scene'" :size="22"/></div><figcaption>{{v?t('lib.pv.'+v):k==='ref'?t('lib.refImg'):t('lib.before')}}</figcaption></figure>
           </div>
         </div>
@@ -171,12 +177,13 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
       </div>
       </template>
 
-      <div v-else-if="!big" class="sfilter">
+      <div v-else-if="page==='camera'&&!big" class="sfilter">
         <div class="stags" role="group" :aria-label="t('lib.tagsL')">
           <button v-for="k in CATS" :key="k" :class="'cap tone-'+CT[k]" :aria-pressed="ccat===k" @click="pickCat(k)">{{t('lib.camCat.'+k)}}</button>
         </div>
       </div>
-      <div v-if="page==='camera'&&!big" ref="grid" class="sgrid wide">
+      <p v-if="page==='filter'&&!big&&!camList.length" class="fempty">{{t('app.stay')}}</p>
+      <div v-if="isCam&&!big&&camList.length" ref="grid" class="sgrid wide">
         <article v-for="c in camList" :key="c.id" class="scard" :class="{on:on(c.id)}" @click="sel(c.id)" @mouseenter="hover($event,1)" @mouseleave="hover($event,0)">
           <div :class="'slot '+(c.ratio||'r169')"><video v-if="c.video" :src="cam(c.id).mp4" :poster="cam(c.id).jpg" muted loop playsinline preload="none" disablepictureinpicture></video><span v-else class="campend"><Icon n="camera" :size="22"/>{{t('lib.camPending')}}</span></div>
           <div class="scfoot">
@@ -185,8 +192,8 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
           </div>
         </article>
       </div>
-      <div v-if="page==='camera'&&big" class="sview camview">
-        <div class="svhead"><button class="pill" @click="big=false">← {{t('lib.camBack')}}</button><b>{{t('lib.cam.'+cm.id)}}</b><span class="camsub">{{nm(cm.desc)}}</span><em class="cnt">{{vidx+1}} / {{VID.length}}</em></div>
+      <div v-if="isCam&&big" class="sview camview">
+        <div class="svhead"><button class="pill" @click="big=false">← {{page==='filter'?t('nav.filter'):t('lib.camBack')}}</button><b>{{t('lib.cam.'+cm.id)}}</b><span class="camsub">{{nm(cm.desc)}}</span><em class="cnt">{{vidx+1}} / {{VIDS.length}}</em></div>
         <div class="slot big"><VPlayer :key="cm.id" :src="cam(cm.id).mp4" :poster="cam(cm.id).jpg" quiet/>
           <button class="snav l" :aria-label="t('scene.prev')" @click="step(-1)">‹</button><button class="snav r" :aria-label="t('scene.next')" @click="step(1)">›</button></div>
         <div class="sstrip camstrip">
@@ -196,10 +203,13 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
           </button>
         </div>
       </div>
+      <div v-if="page==='filter'&&!big" class="sidetabs" role="tablist" :aria-label="t('nav.filter')">
+        <button v-for="v in ['video','photo']" :key="v" role="tab" :aria-selected="fkind===v" @click="fkind=v">{{t('lib.fkind.'+v)}}</button>
+      </div>
     </section>
 
     <aside ref="side" class="sprompt" :aria-label="t('lib.prompt')">
-      <h2>{{title}}<span v-if="page==='camera'" class="h2sub">{{nm(cm.desc)}}</span></h2>
+      <h2>{{title}}<span v-if="isCam" class="h2sub">{{nm(cm.desc)}}</span></h2>
       <div v-if="page==='sheet'" class="pmeta">
         <span class="stg"><i v-for="g in sh.tags" :key="g" :class="'chip tone-'+TONE[g]">{{t('lib.tag.'+g)}}</i></span>
         <template v-if="sh.own">
@@ -217,7 +227,7 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
           <button v-for="v in VARIANTS(pr.id)" :key="v" class="tab" role="tab" :aria-selected="vpick(pr.id)===v" @click="pv[pr.id]=v">{{t('lib.pv.'+v)}}</button>
         </div>
         <p v-if="CREDIT[pr.id]" class="ownnote">{{t('lib.credit.'+pr.id)}} <template v-for="[k,u] in CREDIT[pr.id]" :key="u"><a :href="u" target="_blank" rel="noopener">{{t('lib.'+k)}}</a> · </template><a :href="CCL" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></p>
-        <div class="tabs" role="tablist">
+        <div v-if="pr.id!=='mimic'" class="tabs" role="tablist">
           <button v-for="m in PROMPT_MODELS" :key="m" class="tab" role="tab" :aria-selected="pick(pr.id)===m" @click="pm[pr.id]=m">{{t('lib.m.'+m)}}</button>
         </div>
       </div>
@@ -229,11 +239,11 @@ watch(()=>[state.page,state.jump],()=>{const id=state.jump;if(!id||state.page!==
 
 
       <div v-if="!(page==='sheet'&&!sh.own)" class="pbody">
-        <pre v-if="page==='camera'" class="ptext"><template v-for="(g,k) in camSegs(camTxt,cm.cat)" :key="k"><mark v-if="g.m" :class="'tone-'+CAM_TONE[g.m]">{{g.t}}</mark><template v-else>{{g.t}}</template></template></pre>
+        <pre v-if="isCam" class="ptext"><template v-for="(g,k) in camSegs(camTxt,cm.cat)" :key="k"><mark v-if="g.m" :class="'tone-'+CAM_TONE[g.m]">{{g.t}}</mark><template v-else>{{g.t}}</template></template></pre>
         <pre v-else class="ptext">{{text}}</pre>
       </div>
 
-      <div v-if="page!=='camera'" class="pfoot actbar">
+      <div v-if="!isCam" class="pfoot actbar">
         <a v-if="page==='sheet'&&sh.own" class="abtn dl" :href="own(sh.id).png" :download="sh.id+'.png'">{{t('lib.dlPng')}}</a>
         <button v-else-if="page==='sheet'&&pic('sheet/'+sh.id+'__def')" class="abtn dl" @click="dl.ask('sheet',pic('sheet/'+sh.id+'__def'),sh.id+'.webp')">{{t('dl.btn')}}</button>
         <button v-if="!(page==='sheet'&&!sh.own)" class="abtn cp" @click="copy">{{copied?t('scene.copied'):t('lib.copy')}}</button>
