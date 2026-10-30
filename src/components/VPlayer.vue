@@ -2,13 +2,14 @@
 /* 站内自己的播放条：播放暂停、进度（可拖）、静音、全屏；不用浏览器自带控件 */
 import {ref,onMounted} from "vue";
 import {useI18n} from "vue-i18n";
-const props=defineProps({src:String,poster:String,autoplay:{type:Boolean,default:true},loop:{type:Boolean,default:true}});
+const props=defineProps({src:String,poster:String,autoplay:{type:Boolean,default:true},loop:{type:Boolean,default:true},quiet:{type:Boolean,default:false}});
+/* quiet：演示视频默认静音，需要时自己点开声音（10-30 用户：电锯声会吓到人） */
 const {t}=useI18n();
-const box=ref(null),v=ref(null),playing=ref(false),muted=ref(false),pos=ref(0),dur=ref(0);
+const box=ref(null),v=ref(null),playing=ref(false),muted=ref(props.quiet),pos=ref(0),dur=ref(0);
 const fmt=s=>{s=Math.floor(s||0);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
 const toggle=()=>{const x=v.value;if(x.paused)x.play().catch(()=>{});else x.pause()};
 const seek=e=>{v.value.currentTime=+e.target.value};
-const mute=()=>{v.value.muted=!v.value.muted;muted.value=v.value.muted};
+const mute=()=>{muted.value=!muted.value;v.value.muted=muted.value};
 /* 不循环时播完回到第 0 秒停住，画面停在首帧 */
 const end=()=>{const x=v.value;x.pause();x.currentTime=0;pos.value=0};
 const full=()=>{if(document.fullscreenElement)document.exitFullscreen();else box.value.requestFullscreen?.()};
@@ -16,7 +17,7 @@ onMounted(()=>{if(!props.autoplay)return;v.value.play().catch(()=>{v.value.muted
 </script>
 <template>
   <div ref="box" class="vp">
-    <video ref="v" :src="src" :poster="poster" :loop="loop" playsinline disablepictureinpicture @click="toggle" @play="playing=true" @pause="playing=false" @timeupdate="e=>pos=e.target.currentTime" @ended="end" @loadedmetadata="e=>dur=e.target.duration"></video>
+    <video ref="v" :src="src" :muted="muted" :poster="poster" :loop="loop" playsinline disablepictureinpicture @click="toggle" @play="playing=true" @pause="playing=false" @timeupdate="e=>pos=e.target.currentTime" @ended="end" @loadedmetadata="e=>dur=e.target.duration"></video>
     <div class="vpbar">
       <button class="vpb" :aria-label="playing?t('vp.pause'):t('vp.play')" @click="toggle">
         <svg v-if="playing" viewBox="0 0 24 24" width="16" height="16"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>

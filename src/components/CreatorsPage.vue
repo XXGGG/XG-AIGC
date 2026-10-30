@@ -4,6 +4,7 @@ import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {CREATORS} from "../data/creators.js";
 import {PLATFORMS,PLAT_NOTE} from "../data/platforms.js";
+import {SITES} from "../data/sites.js";
 import Icon from "./Icon.vue";
 const {t}=useI18n();
 const PLAT=["bilibili","douyin","x"];
@@ -34,6 +35,19 @@ const ico=id=>"platforms/"+id+".png";
       </article>
     </div>
     </section>
+    <section v-else-if="tab==='sites'">
+    <h2>{{t('rec.sites')}}</h2>
+    <div class="cgrid">
+      <article v-for="w in SITES" :key="w.id" class="ccard">
+        <span class="cav cav0" aria-hidden="true">{{[...w.name][0]}}</span>
+        <div class="cinfo">
+          <h3>{{w.name}}</h3>
+          <p>{{w.intro}}</p>
+        </div>
+        <div class="clinks"><a class="clink" :href="w.url" target="_blank" rel="noopener noreferrer">{{t('rec.site')}} ↗</a><a v-if="w.gh" class="clink" :href="w.gh" target="_blank" rel="noopener noreferrer"><Icon n="github" :size="14"/>GitHub</a></div>
+      </article>
+    </div>
+    </section>
     <section v-else>
     <h2>{{t('rec.platforms')}}</h2>
     <p class="pnote">{{PLAT_NOTE}}</p>
@@ -54,7 +68,7 @@ const ico=id=>"platforms/"+id+".png";
     </section>
     </div>
     <div class="sidetabs" role="tablist" :aria-label="t('nav.creators')">
-      <button v-for="v in ['creators','platforms']" :key="v" role="tab" :aria-selected="tab===v" @click="tab=v">{{t('rec.'+v)}}</button>
+      <button v-for="v in ['creators','platforms','sites']" :key="v" role="tab" :aria-selected="tab===v" @click="tab=v">{{t('rec.'+v)}}</button>
     </div>
   </main>
 </template>

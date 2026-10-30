@@ -16,7 +16,7 @@ const outside=e=>{if(lopen.value&&lbox.value&&!lbox.value.contains(e.target))lop
 onMounted(()=>document.addEventListener("pointerdown",outside));onBeforeUnmount(()=>document.removeEventListener("pointerdown",outside));
 const NAV=["wardrobe","scene","sheet","prompt","camera","filter","whitebox","cases"];
 /* 画风·滤镜、白模视频暂时不开（10-27 用户定）：点了不切页，屏幕正中弹出「敬请期待」，没有蒙版，停一下再往上淡出 */
-const SOON=["filter","whitebox"];
+const SOON=["filter"];
 /* 推荐挪到右边、关于旁边（10-28 用户） */
 const PAGES=[...NAV.filter(k=>!SOON.includes(k)),"creators","about"];
 const soon=ref(0);let st=0;
