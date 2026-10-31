@@ -24,7 +24,7 @@ function prompt(){state.ptab=state.zoom.ptab;state.drawer=true;close()}
         <img v-if="state.zoom.srcs.length" :src="state.zoom.srcs[0]" :alt="state.zoom.title">
         <div v-else class="slot3"><span>{{t('stage.portrait')}}</span><span>{{t('stage.front')}}</span><span>{{t('stage.back')}}</span><em>{{t('stage.pending')}}</em></div>
       </template>
-      <div v-else-if="state.zoom.srcs.length" class="zrow"><img v-for="src in state.zoom.srcs" :key="src" :src="src" :alt="state.zoom.title"></div>
+      <div v-else-if="state.zoom.srcs.length" :class="['zrow',{wide:state.zoom.wide}]"><img v-for="src in state.zoom.srcs" :key="src" :src="src" :alt="state.zoom.title"></div>
       <div v-else class="sq">{{t('part.pending')}}</div>
     </div>
     <p class="zc">{{state.zoom.note||join(t('zoom.ai'),t('zoom.compress'))}}</p>

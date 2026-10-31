@@ -29,7 +29,7 @@ onBeforeUnmount(()=>document.removeEventListener("keydown",onKey));
     <CreatorsPage v-else-if="state.page==='creators'"/>
     <ScenePage v-else-if="state.page==='scene'"/>
     <CasePage v-else-if="state.page==='cases'"/>
-    <LibSplit v-else-if="['sheet','prompt','camera','filter'].includes(state.page)"/>
+    <LibSplit v-else-if="['sheet','prompt','camera','filter','photo'].includes(state.page)"/>
     <div v-else class="main"><SidePanel/><StagePanel/></div>
   </div>
   <ZoomDialog/>

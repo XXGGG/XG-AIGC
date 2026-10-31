@@ -7,6 +7,7 @@ import {ref,computed,watch,onBeforeUnmount} from "vue";
 import {useI18n} from "vue-i18n";
 import {state} from "../lib/store.js";
 import {CASES,CASE_REFS,CASE_PLAT} from "../data/cases.js";
+import {libPrompt} from "../lib/libPrompt.js";
 import Icon from "./Icon.vue";
 import VPlayer from "./VPlayer.vue";
 import PlatIcon from "./PlatIcon.vue";
@@ -15,13 +16,17 @@ const nm=o=>o[locale.value]||o["zh-CN"];
 const B=import.meta.env.BASE_URL;
 const open=ref(false),work=ref(CASES[0].id),cur=ref(CASES[0].clips[0].id),tab=ref("video"),copied=ref(false),bad=ref({});
 const cs=computed(()=>CASES.find(c=>c.id===work.value));
+/* 上层是固定提示词格式（视频、图片、模仿白模），下层是我的案例（10-30 用户）；选中格式卡时右栏显示格式全文 */
+const FMTS=[["vformat","fmt","rig"],["iformat","fmt","look"],["mimic","sd","person"]];
+const fmt=ref("");
+const fmtTxt=computed(()=>fmt.value?libPrompt(fmt.value,FMTS.find(f=>f[0]===fmt.value)[1]):"");
 const L=computed(()=>cs.value.clips);
 const idx=computed(()=>Math.max(0,L.value.findIndex(c=>c.id===cur.value)));
 const cl=computed(()=>L.value[idx.value]);
 const vid=c=>({mp4:B+"cases/"+work.value+"/"+c.id+".mp4",jpg:B+"cases/"+work.value+"/"+c.id+".jpg?v=2"});
 const refImg=k=>B+"cases/"+work.value+"/ref/"+k+".webp";
 const step=d=>{const n=L.value.length;cur.value=L.value[(idx.value+d+n)%n].id};
-const pickWork=id=>{work.value=id;cur.value=CASES.find(c=>c.id===id).clips[0].id};
+const pickWork=id=>{fmt.value="";work.value=id;cur.value=CASES.find(c=>c.id===id).clips[0].id};
 const openWork=id=>{pickWork(id);open.value=true};
 const rd=()=>{try{return localStorage.getItem("xgw.caseAuto")==="1"}catch{return false}};
 const auto=ref(rd());
@@ -29,7 +34,7 @@ const flip=()=>{auto.value=!auto.value;try{localStorage.setItem("xgw.caseAuto",a
 watch(cur,()=>{tab.value="video"});
 /* 右栏标签：视频提示词 + 带提示词的参考图（三视图、分镜图） */
 const tabs=computed(()=>["video",...cl.value.refs.filter(k=>CASE_REFS[k].prompt)]);
-const text=computed(()=>tab.value==="video"?cl.value.prompt:CASE_REFS[tab.value].prompt);
+const text=computed(()=>fmt.value&&!open.value?fmtTxt.value:tab.value==="video"?cl.value.prompt:CASE_REFS[tab.value].prompt);
 const copy=()=>{copyText(text.value).then(ok=>{if(!ok)return;copied.value=true;setTimeout(()=>copied.value=false,1400)})};
 const zoomRef=k=>{if(bad.value[k])return;const x=nm(CASE_REFS[k].name);state.zoom={title:x,srcs:[refImg(k)],sheet:true,note:t('cs.refZoom',{x})}};
 const ar=c=>c.ratio.replace(":","/");
@@ -39,13 +44,21 @@ window.addEventListener("keydown",onKey);onBeforeUnmount(()=>window.removeEventL
 <template>
   <main class="scenes" :aria-label="t('nav.cases')">
     <section v-if="!open" class="slist">
+      <h3 class="lsech">{{t('cs.fmtH')}}</h3>
+      <div class="sgrid wide ptri casefmt">
+        <div v-for="[id,,tone] in FMTS" :key="id" :class="['scard','nohl','prow','tone-'+tone]" role="button" tabindex="0" :aria-pressed="fmt===id" @click="fmt=id" @keydown.enter="fmt=id">
+          <h3 class="prow-h">{{t('lib.p.'+id)}}</h3>
+          <p class="pdesc">{{t('lib.'+id+'Desc')}}</p>
+        </div>
+      </div>
+      <h3 class="lsech">{{t('cs.mineH')}}</h3>
       <div class="sgrid wide casegrid">
-        <article v-for="w in CASES" :key="w.id" class="scard nohl" :aria-pressed="w.id===work" @click="pickWork(w.id)" @dblclick="openWork(w.id)">
+        <article v-for="w in CASES" :key="w.id" class="scard nohl" :aria-pressed="!fmt&&w.id===work" @click="pickWork(w.id)" @dblclick="openWork(w.id)">
           <button class="ccover" :aria-label="t('cs.open')+' '+nm(w.title)" @click.stop="openWork(w.id)">
             <span v-for="c in w.clips.slice(0,4)" :key="c.id" class="slot"><img :src="B+'cases/'+w.id+'/'+c.id+'.jpg?v=2'" alt="" loading="lazy" decoding="async"></span>
           </button>
           <div class="scfoot">
-            <button class="scsel" @click.stop="openWork(w.id)"><b>{{nm(w.title)}}</b><span class="camsub">{{t('cs.n',{n:w.clips.length})}} · {{w.clips[0].model}}</span></button>
+            <button class="scsel" @click.stop="openWork(w.id)"><b>{{nm(w.title)}}</b><span class="camsub">{{t('cs.n',{n:w.clips.length})}}</span></button><i class="chip tone-shoes">{{w.clips[0].model}}</i>
           </div>
         </article>
       </div>
@@ -72,7 +85,12 @@ window.addEventListener("keydown",onKey);onBeforeUnmount(()=>window.removeEventL
       </div>
     </section>
 
-    <aside v-if="!open" class="sprompt" :aria-label="t('lib.prompt')">
+    <aside v-if="!open&&fmt" class="sprompt" :aria-label="t('lib.prompt')">
+      <h2>{{t('lib.p.'+fmt)}}</h2>
+      <div class="pbody"><pre class="ptext">{{fmtTxt}}</pre></div>
+      <div class="pfoot actbar"><button class="abtn cp" @click="copy">{{copied?t('scene.copied'):t('lib.copy')}}</button></div>
+    </aside>
+    <aside v-else-if="!open" class="sprompt" :aria-label="t('lib.prompt')">
       <h2>{{nm(cs.title)}}</h2>
       <div class="pmeta">
         <dl class="kv wrap"><dt>{{t('cs.model')}}</dt><dd>{{cs.clips[0].model}}</dd><dt>{{t('cs.list')}}</dt><dd>{{t('cs.n',{n:L.length})}}</dd></dl>

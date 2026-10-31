@@ -1,6 +1,6 @@
 {
   "name": "xg-aigc-toolbox",
-  "version": "0.54.2",
+  "version": "0.62.1",
   "private": true,
   "type": "module",
   "description": "XG AIGC 工具箱：更衣室（人物三视图提示词 + 局部参考图），全部开源",

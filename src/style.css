@@ -241,7 +241,7 @@ textarea.prompt.mono{font-family:var(--f-mono);font-size:12.5px}
 .toast{font-size:12.5px;color:var(--text-2);min-height:18px;margin-top:4px}
 
 /* 放大：浅色铺满，图片居中 */
-.zoom{position:fixed;inset:0;z-index:20;background:var(--scrim);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:14px;padding:16px 48px 20px;box-sizing:border-box}
+.zoom{position:fixed;inset:0;z-index:300;background:var(--scrim);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:14px;padding:16px 48px 20px;box-sizing:border-box}
 .zoom .zh{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;font-weight:550}
 .zoom .zh>span:first-child{min-width:0}
 .zoom .zbtns{display:flex;gap:6px;flex:none}
@@ -805,3 +805,46 @@ details.big.dim .bigbody{opacity:.55}
 .r43{aspect-ratio:4/3}.camfirst{margin:0;max-width:240px}.camfirst figcaption{font-size:12px;color:var(--muted);margin-top:4px}.camfirst img{width:100%;height:100%;object-fit:cover;display:block;border-radius:10px}
 .fempty{margin:18vh auto 0;color:var(--muted);font-size:14px;text-align:center}
 .pdesc{margin:6px 0 2px;color:var(--muted);font-size:13.5px;line-height:1.7}
+.phgrid .pair.even{grid-template-columns:1fr 1fr}.phgrid figure{cursor:pointer;border-radius:8px}.phgrid figure.von .slot{outline:2px solid var(--ink);outline-offset:1px}.phgrid figure.von figcaption{color:var(--ink);font-weight:550}
+.sgrid.wide.phgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sgrid.wide.phgrid .scard{max-width:none}@media (max-width:700px){.sgrid.wide.phgrid{grid-template-columns:1fr}}
+.zoom .zrow.wide{flex-wrap:nowrap}.zoom .zrow.wide img,.zoom .zrow.wide img:not(:only-child){width:auto;max-width:calc((100vw - 120px)/2);max-height:calc(100vh - 140px);aspect-ratio:3/2;object-fit:contain}.zoom .zrow.wide img:only-child{max-width:calc(100vw - 100px)}@media (max-width:700px){.zoom .zrow.wide{flex-direction:column;flex-wrap:nowrap}.zoom .zrow.wide img,.zoom .zrow.wide img:not(:only-child){max-width:100%;max-height:40vh}}
+.slist.withtabs.viewing>.sview{flex:1 1 0;min-height:0}
+/* 图片画风放大：缩略条贴底，两张 3:2 在剩下的高度里居中，按高度和宽度取小的那个算尺寸 */
+.phview .svhead .camsub{margin:0}
+.slist.viewing .phview .slot.big{display:flex;align-items:center;justify-content:center;container-type:size}
+.phpair{display:flex;justify-content:center;align-items:center;gap:12px;width:100%}
+.phpair figure{margin:0;display:flex;flex-direction:column;gap:6px;flex:none;width:min(calc((100cqw - 128px)/2),calc((100cqh - 28px)*1.5))}
+.phpair.one figure{width:min(calc(100cqw - 116px),calc((100cqh - 28px)*1.5))}
+.phpair .zimg{display:block;width:100%;padding:0;border:2px solid transparent;border-radius:12px;background:none;cursor:zoom-in;aspect-ratio:3/2;overflow:hidden;box-sizing:border-box}
+.phpair figure.von .zimg{border-color:var(--ink)}
+.slist.viewing .phpair img{width:100%;height:100%;max-height:none;object-fit:cover;border-radius:10px;display:block}
+.phpair figcaption{font-size:12.5px;line-height:16px;color:var(--text-2);text-align:center}
+.phview .cstrip .slot{aspect-ratio:3/2}
+.phview .sstrip{margin-top:auto}
+.sgrid.wide.phgrid.one{grid-template-columns:repeat(3,minmax(0,1fr))}
+.phtabs{position:sticky;bottom:8px;z-index:5;margin:auto 0 0;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.phtabs .sidetabs{position:static;margin:0}
+.phtabs .sidetabs button{padding:8px 14px}
+@media (max-width:900px){.slist.viewing .phview .slot.big{aspect-ratio:auto;container-type:normal;padding:0 54px}.phpair{flex-direction:column}.phpair figure,.phpair.one figure{width:100%}.sgrid.wide.phgrid.one{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.sgrid.wide.phgrid.one{grid-template-columns:1fr}.phtabs .sidetabs button{padding:7px 10px;font-size:13px}}
+.phgrid.one .pair.even{grid-template-columns:1fr}
+.pbody p span{white-space:pre-line}
+/* 翻看页右上角：显示切换 + 收起提示词栏 */
+.phview .svhead .cnt{font-size:12.5px;font-style:normal;color:var(--muted)}
+.phctl{margin-left:auto;display:flex;align-items:stretch;gap:8px}.phctl .sidebtn{align-self:stretch;height:auto;min-height:0;padding:0 10px;display:inline-flex;align-items:center;justify-content:center}
+.phctl .tabs.big{display:flex;width:auto;flex-wrap:nowrap;grid-template-columns:none;margin-bottom:0}.phctl .tabs.big .tab{padding:5px 14px;font-size:13px;flex:none}
+.phctl .sidebtn[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.scenes.noside{grid-template-columns:minmax(0,1fr)}.scenes.noside>.sprompt{display:none}
+@media (max-width:900px){.phctl .sidebtn{display:none}.scenes.noside>.sprompt{display:flex}}
+/* 视频画风翻看页：两个 16:9 视频并排 */
+.phpair.vid figure{width:min(calc((100cqw - 128px)/2),calc((100cqh - 28px)*16/9))}
+.phpair.vid.one figure{width:min(calc(100cqw - 116px),calc((100cqh - 28px)*16/9))}
+.phpair.vid .zimg{aspect-ratio:16/9;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;background:var(--well)}
+.phpair.vid .zimg .vp{width:100%;height:100%}
+.phpair .zimg{cursor:pointer}
+/* 案例页上层：固定提示词格式卡 */
+.sgrid.wide.ptri.casefmt{grid-template-columns:repeat(3,minmax(0,1fr))}@media (max-width:1100px){.sgrid.wide.ptri.casefmt{grid-template-columns:1fr}}.casefmt .scard{max-width:none}
+.casefmt .scard.prow{cursor:pointer}
+.casefmt .scard.prow[aria-pressed="true"]{outline:2px solid var(--t-fg);outline-offset:1px}
+.casegrid .scfoot{align-items:center}
+.phgrid .slot.r169{aspect-ratio:16/9;height:auto}.phgrid .slot.r169>video{width:100%;height:100%;object-fit:cover}

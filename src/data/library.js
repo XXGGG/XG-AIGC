@@ -493,7 +493,8 @@ export const OWN_SHEETS=[
 
 /* 提示词：每一类给两套写法（GPT·即梦 用参考图 / Krea 用文字），原图和三视图各一张；提示词在 lib/libPrompt.js */
 export const PROMPT_MODELS=["gpt","krea"];
-export const PROMPTS=["anime2d","chibi","model3d","real","outfit","fromchar","mimic"].map(id=>({id}));
+/* 固定格式（视频、图片）和模仿白模挪到案例页上层（10-30 用户） */
+export const PROMPTS=["anime2d","chibi","model3d","real","outfit","fromchar"].map(id=>({id}));
 
 /* 案例数据在 cases.js */
 export {CASES} from "./cases.js";
