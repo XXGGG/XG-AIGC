@@ -491,10 +491,12 @@ export const OWN_SHEETS=[
 避免：真人照片质感、二次元平涂、塑料感、过度美颜、网红脸、瘦脸大眼、浓妆、三栏之间角色或服装不一致、衣服上有文字和品牌标志、画面里出现文字。`}
 ];
 
-/* 提示词：每一类给两套写法（GPT·即梦 用参考图 / Krea 用文字），原图和三视图各一张；提示词在 lib/libPrompt.js */
-export const PROMPT_MODELS=["gpt","krea"];
+/* 提示词：只给 GPT-image2 / 即梦的写法（10-31 用户：这些只有 GPT-image 做得到，去掉 Krea2 纯文字）；提示词在 lib/libPrompt.js */
+export const PROMPT_MODELS=["gpt"];
 /* 固定格式（视频、图片）和模仿白模挪到案例页上层（10-30 用户） */
-export const PROMPTS=["anime2d","chibi","model3d","real","outfit","fromchar"].map(id=>({id}));
+/* 透明人（参考图）和文字生成衣服（纯文字）是 10-31 用户加的，暂时没有示例图 */
+export const PROMPTS=["anime2d","chibi","model3d","real","outfit","fromchar","ghost","garment"].map(id=>({id}));
+export const PROMPT_TEXT=new Set(["ghost","garment"]);
 
 /* 案例数据在 cases.js */
 export {CASES} from "./cases.js";

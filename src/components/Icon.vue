@@ -9,6 +9,7 @@ const P={
   prompt:'<path d="M5 6h14M5 11h14M5 16h8"/><path d="m16 15 2 2 3-4"/>',
   camera:'<rect x="3" y="6" width="12" height="12" rx="3"/><path d="m15 10 6-3.5v11L15 14"/>',
   cases:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+  tips:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/>',
   filter:'<circle cx="9" cy="9" r="5.5"/><circle cx="15" cy="15" r="5.5"/>',
   sidebar:'<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M14.5 4.5v15"/>',
   photo:'<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/>',

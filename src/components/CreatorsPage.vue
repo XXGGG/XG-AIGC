@@ -44,7 +44,7 @@ const ico=id=>"platforms/"+id+".png";
           <h3>{{w.name}}</h3>
           <p>{{w.intro}}</p>
         </div>
-        <div class="clinks"><a class="clink" :href="w.url" target="_blank" rel="noopener noreferrer">{{t('rec.site')}} ↗</a><a v-if="w.gh" class="clink" :href="w.gh" target="_blank" rel="noopener noreferrer"><Icon n="github" :size="14"/>GitHub</a></div>
+        <div class="clinks"><a v-if="w.url" class="clink" :href="w.url" target="_blank" rel="noopener noreferrer">{{t('rec.site')}} ↗</a><a v-if="w.gh" class="clink" :href="w.gh" target="_blank" rel="noopener noreferrer"><Icon n="github" :size="14"/>GitHub</a></div>
       </article>
     </div>
     </section>

@@ -827,7 +827,7 @@ details.big.dim .bigbody{opacity:.55}
 .phtabs .sidetabs button{padding:8px 14px}
 @media (max-width:900px){.slist.viewing .phview .slot.big{aspect-ratio:auto;container-type:normal;padding:0 54px}.phpair{flex-direction:column}.phpair figure,.phpair.one figure{width:100%}.sgrid.wide.phgrid.one{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:700px){.sgrid.wide.phgrid.one{grid-template-columns:1fr}.phtabs .sidetabs button{padding:7px 10px;font-size:13px}}
-.phgrid.one .pair.even{grid-template-columns:1fr}
+.phgrid.one .pair.even,.pair.even.solo{grid-template-columns:1fr}
 .pbody p span{white-space:pre-line}
 /* 翻看页右上角：显示切换 + 收起提示词栏 */
 .phview .svhead .cnt{font-size:12.5px;font-style:normal;color:var(--muted)}
@@ -843,8 +843,23 @@ details.big.dim .bigbody{opacity:.55}
 .phpair.vid .zimg .vp{width:100%;height:100%}
 .phpair .zimg{cursor:pointer}
 /* 案例页上层：固定提示词格式卡 */
-.sgrid.wide.ptri.casefmt{grid-template-columns:repeat(3,minmax(0,1fr))}@media (max-width:1100px){.sgrid.wide.ptri.casefmt{grid-template-columns:1fr}}.casefmt .scard{max-width:none}
+.sgrid.wide.ptri.casefmt{grid-template-columns:repeat(4,minmax(0,1fr))}@media (max-width:1400px){.sgrid.wide.ptri.casefmt{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:1100px){.sgrid.wide.ptri.casefmt{grid-template-columns:1fr}}.casefmt .scard{max-width:none}
 .casefmt .scard.prow{cursor:pointer}
 .casefmt .scard.prow[aria-pressed="true"]{outline:2px solid var(--t-fg);outline-offset:1px}
 .casegrid .scfoot{align-items:center}
 .phgrid .slot.r169{aspect-ratio:16/9;height:auto}.phgrid .slot.r169>video{width:100%;height:100%;object-fit:cover}
+/* SD 视频还是旧提示词出的：右上角小标记 */
+.phgrid .slot,.phpair .zimg{position:relative}
+.retake{position:absolute;top:8px;right:8px;z-index:2;padding:2px 8px;border-radius:999px;font-size:11.5px;font-style:normal;line-height:1.6;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none}
+.scard .pair .slot.arx{aspect-ratio:var(--ar)}
+.scard .pair .slot.arx.tall{height:440px;width:auto;max-width:100%;margin:0 auto}
+.phpair figure.arx,.phpair.one figure.arx{width:min(calc(100cqw - 116px),calc((100cqh - 28px)*var(--arn)))}
+.phpair figure.arx .zimg{aspect-ratio:var(--ar)}
+@media (max-width:900px){.phpair figure.arx,.phpair.one figure.arx{width:100%}}
+/* 趣味创作：按每张的比例铺满一行（等高对齐），一行放更多张（11-02 用户） */
+.sgrid.wide.phgrid.fun{display:flex;flex-wrap:wrap;gap:16px;--rowh:240px}
+@media (max-width:1500px){.sgrid.wide.phgrid.fun{--rowh:150px;gap:12px}}
+@media (max-width:1100px){.sgrid.wide.phgrid.fun{--rowh:80px;gap:8px}}
+.sgrid.wide.phgrid.fun::after{content:"";flex:10 1 0}
+.phgrid.fun .scard .pair .slot.arx,.phgrid.fun .scard .pair .slot.arx.tall{height:auto;width:100%;margin:0}
+@media (max-width:700px){.phgrid.fun .scard{flex-basis:100%!important}}

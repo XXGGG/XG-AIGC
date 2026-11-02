@@ -30,8 +30,6 @@ export {NOT_HAIR};
 const WORK_MIX=["blazer_fitted","shirt_office","slacks","slacks_belted","skirt_pencil","vest_suit"];
 export const setOnly=p=>["uniform","formal","ethnic"].includes(p.group)||(p.group==="work"&&!WORK_MIX.includes(p.id));
 export const LAYERS=["outer","top","bottom","onepiece"];
-/* 跨性别开关只放开穿戴类 */
-const CROSS=["outer","top","bottom","onepiece","set","shoes","headwear"];
 export const ANCIENT_HAIR=["f_feixian","f_lingyun","f_shuangya","f_duoma","f_banji","f_xiaoyao","m_topknot","u_halfknot","m_highpony","u_loose","f_yunji","f_liangba","m_daoji"];
 export const ANCIENT_HEAD=["buyao","zan","huadian","guan_f","fasuo","ribbon_f","flower","yuguan","jin","futou","mo_e"];
 

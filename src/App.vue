@@ -13,6 +13,7 @@ import CreatorsPage from "./components/CreatorsPage.vue";
 import LibSplit from "./components/LibSplit.vue";
 import ScenePage from "./components/ScenePage.vue";
 import CasePage from "./components/CasePage.vue";
+import TipsPage from "./components/TipsPage.vue";
 
 const {t,locale}=useI18n();
 /* 性别、开关、年龄变了以后，把不再可选的东西换掉 */
@@ -29,6 +30,7 @@ onBeforeUnmount(()=>document.removeEventListener("keydown",onKey));
     <CreatorsPage v-else-if="state.page==='creators'"/>
     <ScenePage v-else-if="state.page==='scene'"/>
     <CasePage v-else-if="state.page==='cases'"/>
+    <TipsPage v-else-if="state.page==='tips'"/>
     <LibSplit v-else-if="['sheet','prompt','camera','filter','photo'].includes(state.page)"/>
     <div v-else class="main"><SidePanel/><StagePanel/></div>
   </div>
